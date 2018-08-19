@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <title>assignment 2</title>
+        <!-- <link rel="stylesheet" href="css/style.css"/> -->
+    </head>
+    <body id='mainPage'>
+
+        <form id='searchForm' method='post' action='/search'>
+            <input id='search' name="authorname" type="text" placeholder="author name" required></input>
+            <input type="submit" value="search"></input>
+        </form>
+        
+        <form role="form" method='post' action='/searchtexts'>
+            <% if(searchtexts !== null && searchtexts.lenght !== 0){ %>
+                <label>Searching Texts</label>
+                <ul>
+                    <% for(var i=0; i<searchtexts.length; i++) {%>
+                        <input name="submit" type="submit" value=<%= searchtexts[i]%>></input>
+                    <% } %>
+                </ul>
+            <% } %>
+        </form>
+
+        <form role="form" method='post' action='/usertexts'>
+            <% if(usertexts !== null && usertexts.lenght !== 0){ %>
+                <label>My Texts</label>
+                <ul>
+                    <% for(var i=0; i<usertexts.length; i++) {%>
+                        <input name="submit" type="submit" value=<%= usertexts[i]%>></input>
+                    <% } %>
+                </ul>
+            <% } %>
+        </form>
+
+        <form id='mainPart' role="form" method='post' action='/edit'>
+            <div>
+                <label for="textname">title:</label>
+                <% if(textname !== null){ %>
+                    <input id='textname' name='textname' required="required" placeholder="Your text name" value="<%= textname %>"></input>   
+                <% }else{ %>
+                    <input id='textname' name='textname' required="required" placeholder="Your text name"></input>     
+                <%} %>
+            </div>
+            <label>content:</label>
+            <div>
+                <% if(textContent !== null){ %>
+                    <textarea id="contentTxt" name='contentTxt' rows="10" cols="30"  style="resize: none" placeholder="Your text"><%= textContent %></textarea>
+                <% }else{ %>
+                    <textarea id="contentTxt" name='contentTxt' rows="10" cols="30"  style="resize: none" placeholder="Your text"></textarea>  
+                <%} %>
+            </div>
+            <div>
+                <input name="submit" type="submit" value="save" formaction="/save"></input>
+                <input name="submit" type="submit" value="delete" formaction="/delete"></input>
+            </div>
+        </form>
+
+        <% if(username === null){ %>
+        <form id='loginForm' method='post' action='/login'>
+            <label for="name">Name</label>
+            <input name="name" type="text" required>
+            <label for="password">Password</label>
+            <input name="password" type="password" required>
+            <input type="submit" value="register" formaction="/register"></input>
+            <input type="submit" value="login" formaction="/signIn"></input>
+        </form>
+        <% } %>
+
+        <% if(username !== null){ %>
+        <form id='signOutForm' method='post' action='/signOut'>
+            <label>User Name</label>
+            <input readonly value="<%= username %>"></input>
+            <input name="submit" type="submit" value="sign out"></input>
+        </form>
+
+        <% } %>
+
+        <% if(alert !== null){ %>
+            <font color="red"><%= alert %></font>
+        <% } %>
+
+        <div>
+            <button id='clickBtn' >click</button>
+        </div>
+
+         <script src="/public/app.js"></script>
+    </body>
+</html>
+
